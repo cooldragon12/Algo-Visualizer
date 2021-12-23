@@ -111,6 +111,6 @@ class Algos:
             else:
                 
                 r = mid-1
-            self.construct.construct_list_values({mid:self.construct.NEON_YELLOW, l:self.construct.NEON_YELLOW, r:self.construct.NEON_YELLOW}, True)
+            self.construct.construct_list_values({mid:self.construct.NEON_YELLOW, l:self.construct.NEON_BLUE, r:self.construct.NEON_BLUE}, True)
             yield mid
         return -1

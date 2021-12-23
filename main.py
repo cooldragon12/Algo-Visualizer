@@ -20,6 +20,7 @@ class Construct:
     VERTICAL_PAD = height*.2
     FONT = pygame.font.SysFont('Lucida Sans', 17)
     FONTS = pygame.font.SysFont('Lucida Sans', 14)
+    FONTSS = pygame.font.SysFont('Lucida Sans', 11)
 
     def __init__(self, arr,width=800, height=600):
         self.width = width
@@ -38,9 +39,16 @@ class Construct:
         self.section_height = round((self.height-self.VERTICAL_PAD) / (self.max_val - self.min_val))
         self.start_x = self.HORIZONTAL_PAD //2
     # Set the algo
-    def set_algo(self,algo):
+    def set_algo(self,algo, clear_b=True):
         self.algo = algo
         pygame.display.set_caption(f"Algo Visualizer | {algo}")
+        sorting = self.FONTSS.render(f"Selected: {algo}", 1, (self.BAR_COLOR))
+        if clear_b:
+            clear_rect = ((self.width//2 - sorting.get_width()//2) , 5*15, sorting.get_width()*2, sorting.get_height())
+            pygame.draw.rect(self.window, (0,0,0),clear_rect)
+        self.window.blit(sorting, ((self.width//2 - sorting.get_width()//2) , 5*15))
+        if clear_b:
+            pygame.display.update()
     def construct_list_values(self, color_sel={}, clear_b=False):
         arr = self.arr
         if clear_b:
@@ -66,7 +74,7 @@ class Construct:
     def set_target(self, target, clear_b=False):
         sorting = self.FONT.render(f"Find: {target}", 1, (self.BAR_COLOR))
         if clear_b:
-            clear_rect = ((self.width//2 - sorting.get_width()//2) , 5*10, sorting.get_width(), sorting.get_height())
+            clear_rect = ((self.width//2 - sorting.get_width()//2) , 5*10, sorting.get_width()*2, sorting.get_height())
             pygame.draw.rect(self.window, (0,0,0),clear_rect)
         self.window.blit(sorting, ((self.width//2 - sorting.get_width()//2) , 5*10))
         if clear_b:
@@ -204,7 +212,7 @@ def main2():
     count = -1
     pressed = False
     while run:
-        clock.tick(10)
+        clock.tick(8)
         construct.construct_list_values()
         if searching:
             try:
