@@ -1,4 +1,7 @@
 # Lists of the Algorithms available
+from typing import Tuple
+
+
 class Algos:
     arr = []
     def __init__(self, construct):
@@ -6,7 +9,8 @@ class Algos:
         self.set_list(construct.arr)
     def set_list(self, arr):
         self.arr = arr
-    
+    def set_target(self, target):
+        self.target = target
     def insertion_sort(self, ascending=True):
         """Insertion Sort"""
         arr = self.arr
@@ -47,7 +51,6 @@ class Algos:
                         yield True
         return arr
     
-    
     def comb_sort(self,ascending = True):
         """Comb Sort"""
         def getNextGap(gap):
@@ -82,42 +85,32 @@ class Algos:
                         self.construct.construct_list_bar({i:self.construct.NEON_YELLOW, i+gap:self.construct.NEON_GREEN}, True)
                         yield True
 
-
-    def merge_sort(self, ascending=True):   
-        pass
-        # if len(self.arr) > 1:
-    
-        #     # Finding the mid of the array
-    
-    
-        #     # Sorting the first half
-        #     self.merge_sort(self.L)
-    
-        #     # Sorting the second half
-        #     self.merge_sort(self.R)
-    
-        #     i = j = k = 0
-    
-        #     # Copy data to temp arrays L[] and R[]
-        #     while i < len(self.L) and j < len(self.R):
-        #         if self.L[i] < self.R[j]:
-        #             self.arr[k] = self.L[i]
-        #             i += 1
-        #         else:
-        #             self.arr[k] = self.R[j]
-        #             j += 1
+    def linear_search(self):
+        for i in range(len(self.arr)):
+            if self.arr[i] == self.target:
+                self.construct.construct_list_values({i:self.construct.NEON_GREEN}, True)
+                yield i
+                return i
                 
+            self.construct.construct_list_values({i:self.construct.NEON_YELLOW}, True)
+            yield i
+        return -1
                 
-        #         k += 1
-        #     # Checking if any element was left
-        #     while i < len(self.L):
-        #         self.arr[k] = self.L[i]
-        #         i += 1
-        #         k += 1
+    def binary_search(self):
+        l = 0
+        r = len(self.arr)-1 
+        arr = self.arr
+        while l <= r:
+            mid = l + (r-l) //2
+            if self.target == arr[mid]:
+                self.construct.construct_list_values({mid:self.construct.NEON_GREEN}, True)
+                yield mid
+                return mid
+            if arr[mid] < self.target:
+                l = mid+1
+            else:
                 
-
-        #     while j < len(self.R):
-        #         self.arr[k] = self.R[j]
-        #         j += 1
-        #         k += 1
-
+                r = mid-1
+            self.construct.construct_list_values({mid:self.construct.NEON_YELLOW, l:self.construct.NEON_YELLOW, r:self.construct.NEON_YELLOW}, True)
+            yield mid
+        return -1
